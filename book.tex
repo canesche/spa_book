@@ -1,0 +1,138 @@
+\documentclass[a4paper,12pt]{book}
+
+% PACKAGES
+
+\usepackage{afterpage}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage{chngcntr}
+\usepackage{blindtext}
+\usepackage[labelsep=space]{caption}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage[T1]{fontenc}
+\usepackage[bottom=6.5em]{geometry}
+\usepackage{graphicx}
+\usepackage{gensymb}
+\usepackage[hyperfootnotes=false,linktoc=page,pdfpagelayout=TwoPageRight]{hyperref}
+\usepackage{lettrine}
+\usepackage{cfr-lm}
+\usepackage{makecell}
+\usepackage{mathtools}
+\usepackage{multicol}
+\usepackage[defaultlines=4,all]{nowidow}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{wrapfig}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[pages=some]{background}
+
+\backgroundsetup{
+scale=1,
+color=black,
+opacity=0.9,
+angle=0,
+contents={
+  \includegraphics[width=0.6\textwidth]{images/cover.png}
+  }
+}
+
+\lstset
+{ %Formatting for code in appendix
+    language=Python,
+    basicstyle=\footnotesize,
+    numbers=left,
+    stepnumber=1,
+    showstringspaces=false,
+    tabsize=1,
+    breaklines=true,
+    breakatwhitespace=false,
+}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+
+\counterwithin*{footnote}{page}
+
+% FIGURES
+
+\newcommand{\fig}[3]{
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=\linewidth]{#1}
+        \textbf{\caption{#2}}
+        \label{fig:#3}
+    \end{figure}
+}
+
+% REFERENCES
+
+% TABLE OF CONTENTS FORMAT
+
+\renewcommand{\contentsname}{CONTENTS}
+\renewcommand{\cfttoctitlefont}{\hfil\bfseries\fontsize{15pt}{0pt}\selectfont}
+\renewcommand{\cftaftertoctitleskip}{0.5\baselineskip}
+\renewcommand{\cftsecfont}{\bfseries}
+
+\addtolength{\cftsecnumwidth}{40pt}
+\addtolength{\cftsubsecnumwidth}{10pt}
+\setlength{\cftbeforetoctitleskip}{-3em}
+
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
+
+% TITLE SETUP
+
+\title{\textbf{\huge{Static Program Analysis}\\ \vspace{1cm}\Large{Version 0.1a} \\ \vspace{10cm}\Large{Michael Canesche}}}
+
+%\author{
+%    Secondary Author
+%    \and
+%    Tertiary Author
+%}
+
+%\date{}
+
+% DOCUMENT
+
+\begin{document}
+
+% TITLE
+\BgThispage
+\maketitle
+\clearpage
+
+% PREFACE
+\newpage
+\include{ch/ch_00}
+
+% TABLE OF CONTENTS
+
+\pagenumbering{gobble}
+\pagestyle{empty}
+\newgeometry{bottom=6em}
+    \renewcommand{\baselinestretch}{0.94}\normalsize
+            \tableofcontents
+    \renewcommand{\baselinestretch}{1.0}\normalsize
+\restoregeometry
+\pagestyle{fancy}
+
+\clearpage
+
+% CONTENTS
+
+\pagenumbering{arabic}
+
+\include{ch/ch_01}
+\include{ch/ch_02}
+\include{ch/ch_13}
+
+\end{document}

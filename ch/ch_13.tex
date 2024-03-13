@@ -1,0 +1,115 @@
+\chapter{Range Analysis}
+\label{ch:range}
+
+Range analysis is a program analysis technique used to determine the possible ranges of values that program variables can take on at different points in a program's execution. The analysis can be performed on different types of variables, such as integers, floating-point numbers, or pointers. Thus, It works by analyzing the operations that are performed on a variable throughout the program's execution. By analyzing the arithmetic and logical operations performed on a variable, range analysis can determine the possible minimum and maximum values that the variable can take on.
+
+For example, consider the following code snippet:
+
+\begin{lstlisting}[language=C++]
+int x = 0;
+for (int i = 0; i < 100; i++) {
+    x += i;
+}
+\end{lstlisting}
+
+In this code, the variable \textbf{x} is initialized to 0 and is then incremented by the value of \textbf{i} in each iteration of the loop. By analyzing the loop, range analysis can determine that the minimum value of \textbf{x} is 0, when \textbf{i} is 0, and the maximum value of \textbf{x} is 4950, when \textbf{i} is 99.
+
+Range analysis can be used for various program optimizations, such as loop unrolling, array bounds checking elimination, and constant propagation. By providing information about the possible ranges of variable values, range analysis can help optimize programs and improve their performance. However, It is important to note that range analysis is not always precise, and the computed ranges are often conservative (i.e., they may be wider than the actual range of values).
+
+\section{Dead Code Elimination}
+\label{sec:dce}
+
+Dead code elimination is a program optimization technique that involves removing code that is never executed during the program's execution. Dead code can be a result of various factors such as redundant code, code that has been commented out, or unreachable code. It can improve the performance of a program by reducing the size of the code that needs to be executed. By removing code that is never executed, the compiler can reduce the amount of memory and CPU time required to execute the program.
+
+The process of dead code elimination involves analyzing the control flow graph of the program to identify code that is never executed. The analysis can be performed statically (i.e., at compile time) or dynamically (i.e., at runtime). Static analysis is more common and involves analyzing the program's source code or intermediate representation (IR) to identify dead code. Dynamic analysis, on the other hand, involves executing the program with input data to identify code that is never executed.
+
+Dead code elimination can also be performed selectively, where only specific parts of the program are analyzed for dead code. For example, in a large program, it may be more practical to analyze a specific module or function for dead code instead of analyzing the entire program.
+
+In addition to improving performance, dead code elimination can also help improve code maintainability by removing unnecessary code that can clutter the program and make it harder to understand. However, care must be taken when applying dead code elimination to avoid removing code that may be used in future development or debugging.
+
+Let's see an example C++ code where dead code elimination can occur:
+
+\begin{lstlisting}[language=C++]
+int foo() {
+    int x = 10;
+    int y = 20;
+    int z = 0;
+
+    // This code will never be executed
+    if (x == y) {
+        z = 30;
+    }
+    
+    return x + y;
+}
+\end{lstlisting}
+
+In this code, the if statement checks whether x is equal to y and sets z to 30 if they are equal. However, since x is initialized to 10 and y is initialized to 20, the condition of the if statement will never be true, and the code inside the if statement will never be executed.
+
+As a result, the code inside the if statement can be considered dead code, and can be eliminated by the compiler. After dead code elimination, the optimized code would look like this:
+
+\begin{lstlisting}[language=C++]
+int foo() {
+    int x = 10;
+    int y = 20;
+    
+    return x + y;
+}
+\end{lstlisting}
+
+In this optimized code, the if statement and the assignment to z have been removed, as they are never executed. This reduces the size of the code and can improve the program's performance.
+
+\section{Array Bounds Check Elimination}
+\label{sec:array}
+
+Array bounds check elimination is a program optimization technique that involves removing redundant bounds checking operations on array accesses in a program. Bounds checking is a runtime operation that ensures that array accesses are within the bounds of the array. If array access is out of bounds, it can lead to memory corruption, crashes, or security vulnerabilities. It can improve the performance of a program by reducing the number of bounds checks performed during program execution. This can be particularly useful in performance-critical programs, such as scientific simulations or video games, where small performance improvements can have a significant impact on overall program performance.
+
+The process of array bounds check elimination involves analyzing the program to identify cases where the bounds of array access are known at compile time. For example, if an array access is inside a loop with a constant index value, the bounds of the array access can be determined at compile time. In such cases, the bounds check can be eliminated, and the array access can be performed directly.
+
+Let's see an example C++ code where array bounds check elimination can occur:
+
+\begin{lstlisting}[language=C++]
+int foo() {
+    const int array_size = 10;
+    int array[array_size];
+    int choose = 5;
+
+    // Initialize array with values from 0 to 9
+    for (int i = 0; i < array_size; i++) {
+        array[i] = i;
+    }
+
+    // Access array with a constant index value
+    if (choose < array_size)
+        return array[choose];
+    else 
+        throw new ArrayIndexOutOfBoundsException()
+}
+\end{lstlisting}
+
+In this code, the array is initialized with values from 0 to 9, and then the value at index 5 is printed to the console. Since the index value of 5 is known at compile time, the bounds of the array access are also known, and the bounds check can be eliminated. This can result in faster execution of the program, as the program does not have to perform a bounds check on the array access. The optimized code will be transformed as: 
+
+\begin{lstlisting}[language=C++]
+int foo() {
+    const int array_size = 10;
+    int array[array_size];
+    int choose = 5;
+
+    // Initialize array with values from 0 to 9
+    for (int i = 0; i < array_size; i++) {
+        array[i] = i;
+    }
+
+    // Access array with a constant index value
+    return array[choose];
+}
+\end{lstlisting}
+
+Array bounds check elimination can be performed automatically by modern compilers, such as GCC and Clang, or manually by the programmer using techniques such as loop unrolling, constant propagation, and array access rewriting.
+
+\section{Integer Overflow Check Elimination}
+\label{sec:integerOverflow}
+
+
+\section{Malign	Integer	Overflows}
+\label{sec:malignInteger}
